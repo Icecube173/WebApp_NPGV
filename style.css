@@ -1,0 +1,107 @@
+/* ===== Style commun de la webapp chantier ===== */
+:root{
+  --bleu:#0078D7;
+  --bleu-fonce:#083f78;
+  --vert:#1f9d55;
+  --rouge:#d93838;
+  --gris:#f2f4f7;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  background:#eef1f5;
+  color:#1b1b1b;
+}
+.app-header{
+  display:flex;align-items:center;gap:10px;
+  background:var(--bleu);color:#fff;
+  padding:14px 16px;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 8px rgba(0,0,0,.18);
+}
+.app-header h1{font-size:18px;margin:0;font-weight:700}
+.app-header .back{
+  color:#fff;text-decoration:none;font-size:28px;line-height:1;
+  padding:0 6px;font-weight:700;
+}
+.container{max-width:760px;margin:0 auto;padding:16px}
+.info{font-size:13px;color:#555;margin:4px 0 14px}
+
+/* --- Page d'accueil : tuiles --- */
+.chantier-box{
+  background:#fff;border-radius:14px;padding:14px;margin-bottom:16px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+.chantier-box label{display:block;font-weight:700;margin-bottom:8px}
+.alerte{
+  background:#fff8e1;border:1px solid #f0c000;border-radius:10px;
+  padding:10px;font-size:13px;margin-top:10px;
+}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.tuile{
+  display:block;text-decoration:none;color:inherit;background:#fff;
+  border-radius:14px;padding:18px 14px;text-align:center;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);transition:transform .1s;
+}
+.tuile:active{transform:scale(.97)}
+.tuile .ico{font-size:30px;display:block;margin-bottom:8px}
+.tuile .titre{font-weight:700;font-size:15px}
+.tuile .sous{font-size:12px;color:#666;margin-top:4px}
+
+/* --- Formulaires --- */
+.field-group{margin-bottom:14px}
+.field-group label{display:block;font-weight:700;margin-bottom:6px;font-size:15px}
+.field-group .req{color:var(--rouge)}
+input,select,textarea{
+  width:100%;padding:12px;font-size:16px;border-radius:8px;
+  border:1px solid #ccc;background:#fff;
+}
+textarea{min-height:110px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row > *{flex:1;min-width:140px}
+.choix{display:flex;gap:8px;flex-wrap:wrap}
+.choix label{
+  font-weight:600;font-size:14px;background:#fff;border:1px solid #ccc;
+  border-radius:20px;padding:8px 14px;cursor:pointer;display:flex;
+  align-items:center;gap:6px;margin:0;
+}
+.choix input{width:auto;padding:0}
+.btn{
+  width:100%;padding:16px;font-size:17px;font-weight:700;border:none;
+  border-radius:12px;background:var(--vert);color:#fff;cursor:pointer;margin-top:6px;
+}
+.btn.secondaire{background:var(--bleu)}
+.btn.gris{background:#6b7280}
+.field-wrap{position:relative}
+.dropdown{
+  position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #ccc;
+  border-radius:8px;max-height:200px;overflow-y:auto;z-index:60;display:none;
+  box-shadow:0 6px 16px rgba(0,0,0,.14);
+}
+.dropdown div{padding:11px 12px;font-size:15px;cursor:pointer;border-bottom:1px solid #f0f0f0}
+.dropdown div:hover{background:#e7f0fb}
+.status{
+  text-align:center;font-size:14px;font-weight:700;padding:12px;
+  border-radius:12px;margin-top:10px;display:none;
+}
+.status.ok{display:block;background:#e4f6ec;color:var(--vert)}
+.status.erreur{display:block;background:#fdecec;color:var(--rouge)}
+.adresse-bloc{
+  display:flex;align-items:center;gap:10px;background:var(--gris);
+  border:1px dashed var(--bleu);border-radius:10px;padding:10px;margin-top:6px;
+}
+.adresse-bloc .mail{
+  flex:1;font-family:monospace;font-size:13px;font-weight:700;
+  color:var(--bleu-fonce);word-break:break-all;
+}
+.btn-copy{
+  background:var(--bleu);color:#fff;border:none;border-radius:10px;
+  padding:10px 14px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;
+}
+.carte{
+  background:#fff;border-radius:14px;padding:14px;margin-bottom:14px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+.carte h2{font-size:16px;margin:0 0 10px;color:var(--bleu-fonce)}
+footer.pied{text-align:center;font-size:12px;color:#777;padding:20px}

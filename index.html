@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Webapp Chantier</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0078D7">
+<link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+<header class="app-header">
+  <h1>🏭 Webapp Chantier</h1>
+</header>
+
+<div class="container">
+
+  <div class="chantier-box">
+    <label for="chantier">Chantier en cours</label>
+    <select id="chantier"></select>
+    <div class="alerte">⚠️ Choisis ton chantier : il pré-remplit automatiquement les formulaires (site, tranche, network, n° d'affaire).</div>
+  </div>
+
+  <p class="info">Choisissez une application</p>
+
+  <div class="grid">
+    <a class="tuile" href="fdm.html">
+      <span class="ico">📝</span>
+      <span class="titre">Fiche de maintenance</span>
+      <div class="sous">Saisir et remonter une FDM</div>
+    </a>
+    <!-- Les modules suivants seront ajoutés aux étapes 2, 3, 4…
+    <a class="tuile" href="etat.html"><span class="ico">📊</span><span class="titre">État du matériel</span><div class="sous">Vue d'ensemble des sous-ensembles</div></a>
+    <a class="tuile" href="rex.html"><span class="ico">💬</span><span class="titre">Retour d'expérience</span><div class="sous">Remarques depuis le terrain</div></a>
+    <a class="tuile" href="colisage.html"><span class="ico">📦</span><span class="titre">Colisage</span><div class="sous">Conteneur, caisse…</div></a>
+    -->
+  </div>
+
+</div>
+
+<footer class="pied">Webapp chantier — v0.1</footer>
+
+<script>
+// Chargement de la liste des chantiers + mémorisation du choix
+fetch('chantiers.json')
+  .then(r => r.json())
+  .then(data => {
+    const sel = document.getElementById('chantier');
+    sel.innerHTML = '<option value="">— Sélectionner —</option>';
+    data.forEach(c => {
+      const o = document.createElement('option');
+      o.value = c.id;
+      o.textContent = c.nom;
+      sel.appendChild(o);
+    });
+    const memo = localStorage.getItem('chantierId');
+    if (memo) sel.value = memo;
+    sel.addEventListener('change', () => {
+      localStorage.setItem('chantierId', sel.value);
+      const c = data.find(x => x.id === sel.value);
+      localStorage.setItem('chantier', c ? JSON.stringify(c) : '');
+    });
+  })
+  .catch(() => {
+    document.getElementById('chantier').innerHTML =
+      '<option>Erreur de chargement de chantiers.json</option>';
+  });
+
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js');
+</script>
+</body>
+</html>

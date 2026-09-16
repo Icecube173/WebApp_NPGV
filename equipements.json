@@ -1,0 +1,7 @@
+[
+  { "ref": "EQ-001", "designation": "Pompe HP", "sousEnsemble": "Skid pompage" },
+  { "ref": "EQ-002", "designation": "Tuyauterie rigide aéroréfrigérant", "sousEnsemble": "Circuit refroidissement" },
+  { "ref": "EQ-003", "designation": "Vanne vapeur", "sousEnsemble": "Barillet vapeur" },
+  { "ref": "EQ-004", "designation": "Armoire de contrôle / automate", "sousEnsemble": "Contrôle commande" },
+  { "ref": "EQ-005", "designation": "Flexible haute pression", "sousEnsemble": "Lançage" }
+]

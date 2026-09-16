@@ -1,0 +1,20 @@
+[
+  {
+    "id": "NPGV GRA1",
+    "nom": "CNPE Gravelines Tranche 1",
+    "site": "Gravelines",
+    "tranche": "1",
+    "network": "3230924",
+    "affaire": "AF2026XXXX",
+    "mailFDM": "alain.dugard@westinghouse.com"
+  },
+  {
+    "id": "NPGV BUG4",
+    "nom": "CNPE Bugey Tranche 4",
+    "site": "Bugey",
+    "tranche": "4",
+    "network": "3230925",
+    "affaire": "AF2026YYYY",
+    "mailFDM": "alain.dugard@westinghouse.com"
+  }
+]

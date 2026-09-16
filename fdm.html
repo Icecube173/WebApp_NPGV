@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiche de maintenance — Chantier</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0078D7">
+<link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+<header class="app-header">
+  <a class="back" href="index.html">‹</a>
+  <h1>📝 Fiche de maintenance</h1>
+</header>
+
+<div class="container">
+  <p class="info">* champs obligatoires</p>
+
+  <!-- ===== Identification ===== -->
+  <div class="carte">
+    <h2>Identification</h2>
+
+    <div class="field-group">
+      <label>Chantier <span class="req">*</span></label>
+      <select id="chantier"></select>
+    </div>
+
+    <div class="row">
+      <div class="field-group">
+        <label>Lieu / Tranche</label>
+        <input type="text" id="lieu" placeholder="ex. GRA1">
+      </div>
+      <div class="field-group">
+        <label>Network</label>
+        <input type="text" id="network" placeholder="ex. 3230790">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>Équipement <span class="req">*</span></label>
+      <div class="field-wrap">
+        <input type="text" id="equipement" autocomplete="off" spellcheck="false" placeholder="Rechercher un équipement…">
+        <div id="equipList" class="dropdown"></div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field-group">
+        <label>Réf. SAP</label>
+        <input type="text" id="refsap">
+      </div>
+      <div class="field-group">
+        <label>Autre réf.</label>
+        <input type="text" id="autreref">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label>Circonstances</label>
+      <div class="choix" id="circonstances">
+        <label><input type="radio" name="circ" value="Opération"> Opération</label>
+        <label><input type="radio" name="circ" value="Qualification"> Qualification</label>
+        <label><input type="radio" name="circ" value="Vérification / Étalonnage"> Vérif. / Étalonnage</label>
+        <label><input type="radio" name="circ" value="Formation"> Formation</label>
+        <label><input type="radio" name="circ" value="Autre"> Autre</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Dysfonctionnement ===== -->
+  <div class="carte">
+    <h2>Dysfonctionnement / Demande de maintenance</h2>
+    <div class="field-group">
+      <label>Symptôme(s) — description du problème <span class="req">*</span></label>
+      <textarea id="symptomes" placeholder="Décrire le problème constaté…"></textarea>
+    </div>
+    <div class="field-group">
+      <label>Intervention / action corrective immédiate</label>
+      <textarea id="action"></textarea>
+    </div>
+    <div class="row">
+      <div class="field-group">
+        <label>Nom <span class="req">*</span></label>
+        <input type="text" id="nom">
+      </div>
+      <div class="field-group">
+        <label>Date <span class="req">*</span></label>
+        <input type="date" id="date">
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Diagnostic ===== -->
+  <div class="carte">
+    <h2>Diagnostic</h2>
+    <div class="field-group">
+      <label>Diagnostic</label>
+      <textarea id="diagnostic"></textarea>
+    </div>
+    <div class="field-group">
+      <label>Type de panne</label>
+      <input type="text" id="typepanne" placeholder="ex. déformation mécanique, choc suspecté">
+    </div>
+  </div>
+
+  <!-- ===== Maintenance ===== -->
+  <div class="carte">
+    <h2>Description de la maintenance</h2>
+    <div class="field-group">
+      <label>Description de la maintenance</label>
+      <textarea id="descmaint"></textarea>
+    </div>
+    <div class="field-group">
+      <label>Type de maintenance</label>
+      <div class="choix">
+        <label><input type="radio" name="typemaint" value="Préventive"> Préventive</label>
+        <label><input type="radio" name="typemaint" value="Curative"> Curative</label>
+        <label><input type="radio" name="typemaint" value="Périodique"> Périodique</label>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Vérification périodique à venir</label>
+      <div class="choix">
+        <label><input type="radio" name="verifperio" value="Oui"> Oui</label>
+        <label><input type="radio" name="verifperio" value="Non"> Non</label>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Tests fonctionnels réalisés</label>
+      <div class="choix">
+        <label><input type="radio" name="tests" value="Oui"> Oui</label>
+        <label><input type="radio" name="tests" value="Non"> Non</label>
+      </div>
+    </div>
+    <div class="field-group">
+      <label>Équipement fonctionnel</label>
+      <div class="choix">
+        <label><input type="radio" name="fonctionnel" value="Oui"> Oui</label>
+        <label><input type="radio" name="fonctionnel" value="Non"> Non</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="field-group">
+        <label>N° PR / achat</label>
+        <input type="text" id="pr">
+      </div>
+      <div class="field-group">
+        <label>Coût des achats (€)</label>
+        <input type="number" id="cout" step="0.01">
+      </div>
+      <div class="field-group">
+        <label>Temps passé (h)</label>
+        <input type="number" id="temps" step="0.5">
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Envoi ===== -->
+  <div class="carte">
+    <h2>Transmission</h2>
+    <p class="info">La fiche est envoyée par mail depuis ton téléphone (aucun serveur nécessaire).</p>
+    <div class="adresse-bloc">
+      <span class="mail" id="mailDest">—</span>
+      <button class="btn-copy" onclick="copierMail()">Copier</button>
+    </div>
+    <button class="btn" onclick="envoyer()">📧 Envoyer la FDM</button>
+    <button class="btn secondaire" onclick="copierFiche()">📋 Copier le texte de la fiche</button>
+    <button class="btn gris" onclick="reinit()">♻️ Réinitialiser le formulaire</button>
+    <div class="status" id="status"></div>
+  </div>
+</div>
+
+<script>
+let chantiers = [], equipements = [], chantierCourant = null;
+
+// ---- Chargement des données ----
+Promise.all([
+  fetch('chantiers.json').then(r => r.json()),
+  fetch('equipements.json').then(r => r.json())
+]).then(([c, e]) => {
+  chantiers = c; equipements = e;
+  const sel = document.getElementById('chantier');
+  sel.innerHTML = '<option value="">— Sélectionner —</option>';
+  c.forEach(x => sel.insertAdjacentHTML('beforeend', `<option value="${x.id}">${x.nom}</option>`));
+  const memo = localStorage.getItem('chantierId');
+  if (memo) { sel.value = memo; appliquerChantier(); }
+  sel.addEventListener('change', () => {
+    localStorage.setItem('chantierId', sel.value);
+    appliquerChantier();
+  });
+}).catch(() => msg('Erreur de chargement des données JSON', false));
+
+function appliquerChantier() {
+  chantierCourant = chantiers.find(x => x.id === document.getElementById('chantier').value) || null;
+  if (!chantierCourant) return;
+  document.getElementById('lieu').value = chantierCourant.site + chantierCourant.tranche;
+  document.getElementById('network').value = chantierCourant.network || '';
+  document.getElementById('mailDest').textContent = chantierCourant.mailFDM || '—';
+}
+
+// ---- Auto-complétion équipement ----
+const inputEq = document.getElementById('equipement');
+const listEq  = document.getElementById('equipList');
+inputEq.addEventListener('input', () => {
+  const q = inputEq.value.toLowerCase().trim();
+  listEq.innerHTML = '';
+  if (!q) { listEq.style.display = 'none'; return; }
+  const res = equipements.filter(e =>
+    (e.designation + ' ' + e.ref).toLowerCase().includes(q)).slice(0, 12);
+  res.forEach(e => {
+    const d = document.createElement('div');
+    d.textContent = e.ref + ' — ' + e.designation;
+    d.onclick = () => {
+      inputEq.value = e.designation;
+      document.getElementById('autreref').value = e.ref;
+      listEq.style.display = 'none';
+    };
+    listEq.appendChild(d);
+  });
+  listEq.style.display = res.length ? 'block' : 'none';
+});
+document.addEventListener('click', ev => {
+  if (!ev.target.closest('.field-wrap')) listEq.style.display = 'none';
+});
+
+// ---- Construction du texte de la fiche ----
+const val = id => (document.getElementById(id).value || '').trim();
+const radio = name => { const r = document.querySelector(`input[name="${name}"]:checked`); return r ? r.value : ''; };
+
+function texteFiche() {
+  return `FICHE DE MAINTENANCE
+Chantier        : ${chantierCourant ? chantierCourant.nom : ''}
+N° d'affaire    : ${chantierCourant ? (chantierCourant.affaire || '') : ''}
+Lieu / Tranche  : ${val('lieu')}
+Network         : ${val('network')}
+
+Équipement      : ${val('equipement')}
+Réf. SAP        : ${val('refsap')}
+Autre réf.      : ${val('autreref')}
+Circonstances   : ${radio('circ')}
+
+--- DYSFONCTIONNEMENT ---
+Symptômes       : ${val('symptomes')}
+Action immédiate: ${val('action')}
+Rédacteur       : ${val('nom')}
+Date            : ${val('date')}
+
+--- DIAGNOSTIC ---
+Diagnostic      : ${val('diagnostic')}
+Type de panne   : ${val('typepanne')}
+
+--- MAINTENANCE ---
+Description     : ${val('descmaint')}
+Type            : ${radio('typemaint')}
+Vérif. périodique à venir : ${radio('verifperio')}
+Tests fonctionnels        : ${radio('tests')}
+Équipement fonctionnel    : ${radio('fonctionnel')}
+N° PR           : ${val('pr')}
+Coût achats     : ${val('cout')} €
+Temps passé     : ${val('temps')} h
+
+Fiche générée le ${new Date().toLocaleString('fr-FR')} via la webapp chantier.`;
+}
+
+function verifier() {
+  if (!chantierCourant) return 'Sélectionne un chantier.';
+  if (!val('equipement'))  return "Renseigne l'équipement.";
+  if (!val('symptomes'))   return 'Renseigne les symptômes.';
+  if (!val('nom'))         return 'Renseigne ton nom.';
+  if (!val('date'))        return 'Renseigne la date.';
+  return null;
+}
+
+function envoyer() {
+  const err = verifier();
+  if (err) return msg(err, false);
+  const sujet = `FDM - ${chantierCourant.nom} - ${val('equipement')} - ${val('date')}`;
+  const url = 'mailto:' + encodeURIComponent(chantierCourant.mailFDM || '') +
+              '?subject=' + encodeURIComponent(sujet) +
+              '&body=' + encodeURIComponent(texteFiche());
+  window.location.href = url;
+  msg('Mail préparé ✔ — vérifie puis envoie depuis ta messagerie.', true);
+}
+
+function copierFiche() {
+  navigator.clipboard.writeText(texteFiche())
+    .then(() => msg('Texte de la fiche copié ✔', true))
+    .catch(() => msg('Copie impossible sur ce navigateur', false));
+}
+function copierMail() {
+  navigator.clipboard.writeText(document.getElementById('mailDest').textContent)
+    .then(() => msg('Adresse copiée ✔', true));
+}
+function reinit() {
+  document.querySelectorAll('input:not([type=radio]), textarea').forEach(e => e.value = '');
+  document.querySelectorAll('input[type=radio]').forEach(e => e.checked = false);
+  appliquerChantier();
+  msg('Formulaire réinitialisé', true);
+}
+function msg(t, ok) {
+  const s = document.getElementById('status');
+  s.textContent = t;
+  s.className = 'status ' + (ok ? 'ok' : 'erreur');
+  setTimeout(() => { s.className = 'status'; }, 6000);
+}
+
+// Date du jour par défaut
+document.getElementById('date').valueAsDate = new Date();
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js');
+</script>
+</body>
+</html>
