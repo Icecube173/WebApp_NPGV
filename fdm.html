@@ -158,17 +158,26 @@
   </div>
 
   <!-- ===== Envoi ===== -->
-  <div class="carte">
+    <div class="carte">
     <h2>Transmission</h2>
-    <p class="info">La fiche est envoyée par mail depuis ton téléphone (aucun serveur nécessaire).</p>
+
+    <button class="btn" onclick="genererWord()">📄 Générer la fiche Word</button>
+    <button class="btn secondaire" onclick="genererExcel()">📊 Générer la fiche Excel</button>
+    <button class="btn" style="background:#8250df" onclick="envoyerViaForms()">📨 Envoyer au suivi SharePoint</button>
+
+    <button class="btn gris" onclick="copierJSON()">📋 Copier les données (secours)</button>
+    <button class="btn gris" onclick="voirJournal()">🗂️ Journal des fiches de l'appareil</button>
+
+    <p class="info" style="margin-top:12px">Envoi par mail (secours) :</p>
     <div class="adresse-bloc">
       <span class="mail" id="mailDest">—</span>
       <button class="btn-copy" onclick="copierMail()">Copier</button>
     </div>
-    <button class="btn" onclick="envoyer()">📧 Envoyer la FDM</button>
-    <button class="btn secondaire" onclick="copierFiche()">📋 Copier le texte de la fiche</button>
-    <button class="btn gris" onclick="reinit()">♻️ Réinitialiser le formulaire</button>
+    <button class="btn gris" onclick="envoyer()">📧 Envoyer par mail</button>
+
+    <p class="info" id="badgeQueue" style="color:#d93838;font-weight:700"></p>
     <div class="status" id="status"></div>
+    <button class="btn gris" onclick="reinit()">♻️ Réinitialiser le formulaire</button>
   </div>
 </div>
 
@@ -198,6 +207,7 @@ function appliquerChantier() {
   document.getElementById('lieu').value = chantierCourant.site + chantierCourant.tranche;
   document.getElementById('network').value = chantierCourant.network || '';
   document.getElementById('mailDest').textContent = chantierCourant.mailFDM || '—';
+  window.chantierCourant = chantierCourant;
 }
 
 // ---- Auto-complétion équipement ----
@@ -310,5 +320,12 @@ function msg(t, ok) {
 document.getElementById('date').valueAsDate = new Date();
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js');
 </script>
+
+<script>
+fetch('config.json').then(r => r.json()).then(c => { window.CONFIG = c; });
+</script>
+fdm.jsscript>
+<script src="f/script>
+
 </body>
 </html>
