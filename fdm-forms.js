@@ -31,7 +31,7 @@ async function envoyerViaForms() {
   // archivage local de secours (traçabilité + file d'attente)
   fileQueue(d);
 
-  setTimeout(() => window.open(url, '_blank'), 600);
+  setTimeout(() => { window.location.href = url; }, 600);
 }
 
 /* ---------- Secours : afficher le JSON pour copie manuelle ---------- */
