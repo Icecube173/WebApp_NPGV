@@ -18,7 +18,6 @@
 <div class="container">
   <p class="info">* champs obligatoires</p>
 
-  <!-- ===== Identification ===== -->
   <div class="carte">
     <h2>Identification</h2>
 
@@ -69,7 +68,6 @@
     </div>
   </div>
 
-  <!-- ===== Dysfonctionnement ===== -->
   <div class="carte">
     <h2>Dysfonctionnement / Demande de maintenance</h2>
     <div class="field-group">
@@ -92,7 +90,6 @@
     </div>
   </div>
 
-  <!-- ===== Diagnostic ===== -->
   <div class="carte">
     <h2>Diagnostic</h2>
     <div class="field-group">
@@ -105,7 +102,6 @@
     </div>
   </div>
 
-  <!-- ===== Maintenance ===== -->
   <div class="carte">
     <h2>Description de la maintenance</h2>
     <div class="field-group">
@@ -157,25 +153,32 @@
     </div>
   </div>
 
-  <!-- ===== Envoi ===== -->
   <div class="carte">
     <h2>Transmission</h2>
-    <p class="info">La fiche est envoyée par mail depuis ton téléphone (aucun serveur nécessaire).</p>
+
+    <button class="btn" onclick="genererWord()">📄 Générer la fiche Word</button>
+    <button class="btn secondaire" onclick="genererExcel()">📊 Générer la fiche Excel</button>
+    <button class="btn" style="background:#8250df" onclick="envoyerViaForms()">📨 Envoyer au suivi SharePoint</button>
+
+    <button class="btn gris" onclick="copierJSON()">📋 Copier les données (secours)</button>
+    <button class="btn gris" onclick="voirJournal()">🗂️ Journal des fiches de l'appareil</button>
+
+    <p class="info" style="margin-top:12px">Envoi par mail (secours) :</p>
     <div class="adresse-bloc">
       <span class="mail" id="mailDest">—</span>
       <button class="btn-copy" onclick="copierMail()">Copier</button>
     </div>
-    <button class="btn" onclick="envoyer()">📧 Envoyer la FDM</button>
-    <button class="btn secondaire" onclick="copierFiche()">📋 Copier le texte de la fiche</button>
-    <button class="btn gris" onclick="reinit()">♻️ Réinitialiser le formulaire</button>
+    <button class="btn gris" onclick="envoyer()">📧 Envoyer par mail</button>
+
+    <p class="info" id="badgeQueue" style="color:#d93838;font-weight:700"></p>
     <div class="status" id="status"></div>
+    <button class="btn gris" onclick="reinit()">♻️ Réinitialiser le formulaire</button>
   </div>
 </div>
 
 <script>
 let chantiers = [], equipements = [], chantierCourant = null;
 
-// ---- Chargement des données ----
 Promise.all([
   fetch('chantiers.json').then(r => r.json()),
   fetch('equipements.json').then(r => r.json())
@@ -194,13 +197,13 @@ Promise.all([
 
 function appliquerChantier() {
   chantierCourant = chantiers.find(x => x.id === document.getElementById('chantier').value) || null;
+  window.chantierCourant = chantierCourant;
   if (!chantierCourant) return;
   document.getElementById('lieu').value = chantierCourant.site + chantierCourant.tranche;
   document.getElementById('network').value = chantierCourant.network || '';
   document.getElementById('mailDest').textContent = chantierCourant.mailFDM || '—';
 }
 
-// ---- Auto-complétion équipement ----
 const inputEq = document.getElementById('equipement');
 const listEq  = document.getElementById('equipList');
 inputEq.addEventListener('input', () => {
@@ -225,69 +228,36 @@ document.addEventListener('click', ev => {
   if (!ev.target.closest('.field-wrap')) listEq.style.display = 'none';
 });
 
-// ---- Construction du texte de la fiche ----
-const val = id => (document.getElementById(id).value || '').trim();
-const radio = name => { const r = document.querySelector('input[name="' + name + '"]:checked'); return r ? r.value : ''; };
-
 function texteFiche() {
-  return 'FICHE DE MAINTENANCE\n' +
-'Chantier        : ' + (chantierCourant ? chantierCourant.nom : '') + '\n' +
-"N° d'affaire    : " + (chantierCourant ? (chantierCourant.affaire || '') : '') + '\n' +
-'Lieu / Tranche  : ' + val('lieu') + '\n' +
-'Network         : ' + val('network') + '\n\n' +
-'Équipement      : ' + val('equipement') + '\n' +
-'Réf. SAP        : ' + val('refsap') + '\n' +
-'Autre réf.      : ' + val('autreref') + '\n' +
-'Circonstances   : ' + radio('circ') + '\n\n' +
-'--- DYSFONCTIONNEMENT ---\n' +
-'Symptômes       : ' + val('symptomes') + '\n' +
-'Action immédiate: ' + val('action') + '\n' +
-'Rédacteur       : ' + val('nom') + '\n' +
-'Date            : ' + val('date') + '\n\n' +
-'--- DIAGNOSTIC ---\n' +
-'Diagnostic      : ' + val('diagnostic') + '\n' +
-'Type de panne   : ' + val('typepanne') + '\n\n' +
-'--- MAINTENANCE ---\n' +
-'Description     : ' + val('descmaint') + '\n' +
-'Type            : ' + radio('typemaint') + '\n' +
-'Vérif. périodique à venir : ' + radio('verifperio') + '\n' +
-'Tests fonctionnels        : ' + radio('tests') + '\n' +
-'Équipement fonctionnel    : ' + radio('fonctionnel') + '\n' +
-'N° PR           : ' + val('pr') + '\n' +
-'Coût achats     : ' + val('cout') + ' €\n' +
-'Temps passé     : ' + val('temps') + ' h\n\n' +
-'Fiche générée le ' + new Date().toLocaleString('fr-FR') + ' via la webapp chantier.';
+  const d = donneesFDM();
+  return Object.entries(d).map(([k, v]) => k.replace(/_/g, ' ') + ' : ' + (v || '')).join('\n');
 }
 
 function verifier() {
   if (!chantierCourant) return 'Sélectionne un chantier.';
-  if (!val('equipement'))  return "Renseigne l'équipement.";
-  if (!val('symptomes'))   return 'Renseigne les symptômes.';
-  if (!val('nom'))         return 'Renseigne ton nom.';
-  if (!val('date'))        return 'Renseigne la date.';
+  if (!document.getElementById('equipement').value.trim()) return "Renseigne l'équipement.";
+  if (!document.getElementById('symptomes').value.trim())  return 'Renseigne les symptômes.';
+  if (!document.getElementById('nom').value.trim())        return 'Renseigne ton nom.';
+  if (!document.getElementById('date').value)              return 'Renseigne la date.';
   return null;
 }
 
 function envoyer() {
   const err = verifier();
   if (err) return msg(err, false);
-  const sujet = 'FDM - ' + chantierCourant.nom + ' - ' + val('equipement') + ' - ' + val('date');
+  const sujet = 'FDM - ' + chantierCourant.nom + ' - ' + document.getElementById('equipement').value;
   const url = 'mailto:' + encodeURIComponent(chantierCourant.mailFDM || '') +
               '?subject=' + encodeURIComponent(sujet) +
-              '&body=' + encodeURIComponent(texteFiche());
+              '&body='    + encodeURIComponent(texteFiche());
   window.location.href = url;
   msg('Mail préparé ✔ — vérifie puis envoie depuis ta messagerie.', true);
 }
 
-function copierFiche() {
-  navigator.clipboard.writeText(texteFiche())
-    .then(() => msg('Texte de la fiche copié ✔', true))
-    .catch(() => msg('Copie impossible sur ce navigateur', false));
-}
 function copierMail() {
   navigator.clipboard.writeText(document.getElementById('mailDest').textContent)
     .then(() => msg('Adresse copiée ✔', true));
 }
+
 function reinit() {
   document.querySelectorAll('input:not([type=radio]), textarea').forEach(e => e.value = '');
   document.querySelectorAll('input[type=radio]').forEach(e => e.checked = false);
@@ -295,6 +265,7 @@ function reinit() {
   appliquerChantier();
   msg('Formulaire réinitialisé', true);
 }
+
 function msg(t, ok) {
   const s = document.getElementById('status');
   s.textContent = t;
@@ -302,9 +273,16 @@ function msg(t, ok) {
   setTimeout(() => { s.className = 'status'; }, 6000);
 }
 
-// Date du jour par défaut
 document.getElementById('date').valueAsDate = new Date();
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js');
 </script>
+
+<script>
+fetch('config.json').then(r => r.json()).then(c => { window.CONFIG = c; })
+  .catch(() => { window.CONFIG = {}; });
+</script>
+<script src="fdm.js"></script>
+<script src="fdm-forms.js"></script>
+
 </body>
 </html>
