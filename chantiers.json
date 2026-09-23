@@ -4,7 +4,8 @@
     "nom": "CNPE Gravelines Tranche 1",
     "site": "Gravelines",
     "tranche": "1",
-    "network": "3230924",
+    "projet":"iASCA",
+    "network": "3230790",
     "affaire": "AF2026XXXX",
     "mailFDM": "alain.dugard@westinghouse.com"
   },
@@ -13,8 +14,9 @@
     "nom": "CNPE Bugey Tranche 4",
     "site": "Bugey",
     "tranche": "4",
-    "network": "3230925",
-    "affaire": "AF2026YYYY",
+    "projet":"iASCA",
+    "network": "3231244",
+    "affaire": "AF2027YYYY",
     "mailFDM": "alain.dugard@westinghouse.com"
   }
 ]

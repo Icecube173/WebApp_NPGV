@@ -14,11 +14,19 @@ function idFDM() {
   return `FDM-${(c.site || 'XXX')}${(c.tranche || '')}-${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}`;
 }
 
+function prefixePV() {
+  const c = window.chantierCourant || {};
+  const an = String(new Date().getFullYear()).slice(2);
+  return 'WEF-' + an + '-' + (c.projet || 'XXXX') + '-' + (c.site || 'XXX') + '-PV';
+}
+
 /* ---------- Collecte de tous les champs ---------- */
 function donneesFDM() {
   const c = window.chantierCourant || {};
   return {
     ID_FDM: idFDM(),
+    Prefixe_PV: prefixePV(),
+    Num_PV: '',
     Horodatage: new Date().toISOString(),
     Chantier: c.nom || '',
     N_Affaire: c.affaire || '',
