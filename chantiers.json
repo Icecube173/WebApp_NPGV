@@ -2,7 +2,7 @@
   {
     "id": "NPGV GRA1",
     "nom": "CNPE Gravelines Tranche 1",
-    "site": "Gravelines",
+    "site": "GRA",
     "tranche": "1",
     "projet":"iASCA",
     "network": "3230790",
@@ -12,7 +12,7 @@
   {
     "id": "NPGV BUG4",
     "nom": "CNPE Bugey Tranche 4",
-    "site": "Bugey",
+    "site": "BUG",
     "tranche": "4",
     "projet":"iASCA",
     "network": "3231244",
