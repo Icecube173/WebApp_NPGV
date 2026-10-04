@@ -44,6 +44,7 @@ function donneesFDM() {
     Circonstances: radio('circ'),
     Symptomes: val('symptomes'),
     Action_Immediate: val('action'),
+    Materiel_Utilisable: radio('utilisable'),
     Redacteur: val('nom'),
     Date_Constat: val('date'),
     Diagnostic: val('diagnostic'),
@@ -101,6 +102,7 @@ ligne('Autre réf.', d.Autre_Ref) + ligne('Circonstances', d.Circonstances) +
 '<h2>Dysfonctionnement — demande de maintenance</h2><table>' +
 ligne('Symptômes / description du problème', d.Symptomes) +
 ligne('Intervention / action corrective immédiate', d.Action_Immediate) +
+ligne('Matériel utilisable', d.Materiel_Utilisable) +
 ligne('Nom', d.Redacteur) + ligne('Date', d.Date_Constat) +
 '</table><p class="sign">Signature : ______________________</p>' +
 '<h2>Diagnostic</h2><table>' + ligne('Diagnostic', d.Diagnostic) + ligne('Type de panne', d.Type_Panne) + '</table>' +
@@ -213,3 +215,28 @@ document.addEventListener('DOMContentLoaded', () => {
   majBadge();
   setTimeout(() => { if (navigator.onLine && lire(CLE_ATTENTE).length) viderFile(); }, 3000);
 });
+
+/* ---------- Question "Matériel utilisable ?" ---------- */
+function ajouterQuestionUtilisable() {
+  const zone = document.getElementById('action');
+  if (!zone || document.getElementById('grpUtilisable')) return;
+  const grp = document.createElement('div');
+  grp.className = 'field-group';
+  grp.id = 'grpUtilisable';
+  const titre = document.createElement('label');
+  titre.textContent = 'Matériel utilisable ?';
+  const choix = document.createElement('div');
+  choix.className = 'choix';
+  ['Oui', 'Oui, dégradé', 'Non'].forEach(v => {
+    const l = document.createElement('label');
+    const r = document.createElement('input');
+    r.type = 'radio'; r.name = 'utilisable'; r.value = v;
+    l.appendChild(r);
+    l.appendChild(document.createTextNode(' ' + v));
+    choix.appendChild(l);
+  });
+  grp.appendChild(titre);
+  grp.appendChild(choix);
+  zone.closest('.field-group').after(grp);
+}
+ajouterQuestionUtilisable();
