@@ -149,6 +149,23 @@
   </div>
 
   <div class="carte">
+    <h2>📷 Photos</h2>
+    <p class="info">6 photos maximum. Elles sont insérées dans la fiche Word et archivées sur SharePoint.</p>
+    <div class="row">
+      <label class="btn secondaire" style="text-align:center;margin:0">
+        📷 Prendre une photo
+        <input type="file" accept="image/*" capture="environment" onchange="ajouterPhotos(this)" style="display:none">
+      </label>
+      <label class="btn gris" style="text-align:center;margin:0">
+        🖼️ Depuis la galerie
+        <input type="file" accept="image/*" multiple onchange="ajouterPhotos(this)" style="display:none">
+      </label>
+    </div>
+    <p class="info" id="nbPhotos" style="margin-top:10px;font-weight:700"></p>
+    <div id="miniatures" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:6px"></div>
+  </div>
+
+  <div class="carte">
     <h2>Transmission</h2>
 
     <button class="btn" id="btnEnvoyer" onclick="archiverSharePoint()">📨 Envoyer la FDM</button>
@@ -161,7 +178,7 @@
     <details style="margin-top:14px">
       <summary style="font-weight:700;cursor:pointer;padding:8px 0">Options de secours</summary>
       <button class="btn gris" onclick="viderFile()">🔄 Renvoyer les fiches en attente</button>
-      <button class="btn gris" onclick="envoyerViaForms()">📝 Envoi via Forms (si l'envoi direct échoue)</button>
+      <button class="btn gris" onclick="envoyerViaForms()">📝 Envoi via Forms (sans photos)</button>
       <button class="btn gris" onclick="voirJournal()">🗂️ Journal des fiches de l'appareil</button>
       <p class="info" style="margin-top:12px">Envoi par mail :</p>
       <div class="adresse-bloc">
@@ -258,7 +275,7 @@ function copierMail() {
 }
 
 function reinit() {
-  document.querySelectorAll('input:not([type=radio]), textarea').forEach(e => e.value = '');
+  document.querySelectorAll('input:not([type=radio]):not([type=file]), textarea').forEach(e => e.value = '');
   document.querySelectorAll('input[type=radio]').forEach(e => e.checked = false);
   document.getElementById('date').valueAsDate = new Date();
   appliquerChantier();
@@ -281,6 +298,7 @@ fetch('config.json').then(r => r.json()).then(c => { window.CONFIG = c; })
 </script>
 <script src="fdm.js"></script>
 <script src="fdm-forms.js"></script>
+<script src="photos.js"></script>
 
 </body>
 </html>
