@@ -255,6 +255,7 @@ function verifier() {
   if (!document.getElementById('symptomes').value.trim())  return 'Renseigne les symptômes.';
   if (!document.getElementById('nom').value.trim())        return 'Renseigne ton nom.';
   if (!document.getElementById('date').value)              return 'Renseigne la date.';
+  if (!document.querySelector('input[name="utilisable"]:checked')) return 'Indique si le matériel est utilisable.';
   return null;
 }
 
