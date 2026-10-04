@@ -76,11 +76,9 @@ function telecharger(contenu, nom, type) {
 const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
 const ligne = (l, v) => '<tr><td class="lab">' + esc(l) + '</td><td>' + esc(v) + '</td></tr>';
 
-/* ---------- FICHE WORD ---------- */
-function genererWord() {
-  const d = donneesFDM();
-  const html =
-'<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">' +
+/* ---------- FICHE WORD : construction du HTML ---------- */
+function htmlFicheWord(d, numPV) {
+return '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">' +
 '<head><meta charset="utf-8"><style>' +
 '@page { size:21cm 29.7cm; margin:2cm; }' +
 'body { font-family:Arial, sans-serif; font-size:10pt; }' +
@@ -92,7 +90,8 @@ function genererWord() {
 '.sign { margin-top:18px; font-size:9pt; }' +
 '.pied { margin-top:24px; font-size:8pt; color:#555; text-align:center; }' +
 '</style></head><body>' +
-'<h1>FICHE DE MAINTENANCE<br><span style="font-size:11pt">' + esc(d.ID_FDM) + '</span></h1>' +
+'<p style="font-size:9pt;text-align:right">Procès-verbal ' + esc(numPV) + '</p>' +
+'<h1>FICHE DE MAINTENANCE – ' + esc(d.Equipement) + '<br><span style="font-size:11pt">' + esc(numPV) + '</span></h1>' +
 '<h2>Identification</h2><table>' +
 ligne('Chantier', d.Chantier) + ligne("N° d'affaire", d.N_Affaire) +
 ligne('Lieu / Tranche', d.Lieu_Tranche) + ligne('Network', d.Network) +
@@ -115,10 +114,8 @@ ligne('PR n°', d.PR_Num) + ligne('Coût des achats (€)', d.Cout_Achats_EUR) +
 ligne('Temps passé (h)', d.Temps_Passe_h) +
 '</table><p class="sign">Nom : ____________________ &nbsp;&nbsp; Date : ____________ &nbsp;&nbsp; Signature : ______________</p>' +
 '<h2>Clôture</h2><table>' + ligne('Fiche de maintenance soldée le', '') + ligne('Nom', '') + ligne('Signature', '') + '</table>' +
-'<p class="pied">Fiche générée le ' + new Date().toLocaleString('fr-FR') + ' via la webapp chantier.</p>' +
+'<p class="pied">Réf. technique ' + esc(d.ID_FDM) + ' — générée le ' + new Date().toLocaleString('fr-FR') + ' via la webapp chantier.</p>' +
 '</body></html>';
-  telecharger(html, d.ID_FDM + '.doc', 'application/msword');
-  return d;
 }
 
 /* ---------- FICHE EXCEL ---------- */
@@ -178,6 +175,7 @@ async function archiverSharePoint() {
   if (!(window.CONFIG && window.CONFIG.flowUrl)) return msg('URL du flux non configurée dans config.json', false);
 
   const d = donneesFDM();
+  d.HtmlFiche = htmlFicheWord(d, '{{NUM_PV}}');
   envoiEnCours = true;
   const bouton = document.getElementById('btnEnvoyer');
   if (bouton) { bouton.disabled = true; bouton.textContent = '⏳ Envoi en cours…'; }
