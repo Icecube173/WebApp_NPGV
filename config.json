@@ -1,4 +1,4 @@
 {
-  "flowUrl": "COLLER_ICI_L_URL_HTTP_POST_DU_FLUX",
+  "flowUrl": "https://default516ec17ab92f438b8594e11b6f6bec.79.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/21/workflows/d4b1fb5e1bee41a0bab3fc671dbc1426/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=gVRnF7651UKIt8lOnWgiwcuVBrdnjY2DrjDGiWhL15k",
   "formsUrl": "COLLER_ICI_TON_LIEN_FORMS_ACTUEL"
 }
