@@ -54,7 +54,7 @@ function afficherPhotos() {
     const d = document.createElement('div');
     d.style.cssText = 'position:relative;width:90px;height:90px';
     d.innerHTML =
-      'data:image/jpeg;base64,' + p.base64 + '' +
+        '<' + 'img src="data:image/jpeg;base64,' + p.base64 + '" style="width:90px;height:90px;object-fit:cover;border-radius:8px;border:1px solid #ccc">' +
       '<button type="button" onclick="supprimerPhoto(' + i + ')" style="position:absolute;top:-6px;right:-6px;width:26px;height:26px;border-radius:50%;border:none;background:#d93838;color:#fff;font-weight:700;cursor:pointer">×</button>';
     z.appendChild(d);
   });
@@ -69,7 +69,7 @@ function sectionPhotos(liste) {
     h += '<tr>';
     [liste[i], liste[i + 1]].forEach(p => {
       h += p
-        ? '<td style="text-align:center;width:50%">C:/fdm/' + p.nom + '" width="300"><br>' + p.nom + '</td>'
+        ? '<td style="text-align:center;width:50%">' + '<' + 'img src="' + 'file' + ':///C:/fdm/' + p.nom + '" width="300"><br>' + p.nom + '</td>'
         : '<td style="width:50%"></td>';
     });
     h += '</tr>';
