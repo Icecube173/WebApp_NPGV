@@ -1,186 +1,59 @@
 [
- {
-  "sap": "30042923",
-  "reference": "WEEU 112003-3",
-  "type": "IP2",
-  "taille": "10'",
-  "chaudFroid": "Chaud",
-  "site": "PAL4"
- },
- {
-  "sap": "30042921",
-  "reference": "WEEU 112001-2",
-  "type": "IP2",
-  "taille": "10'",
-  "chaudFroid": "Chaud",
-  "site": "PAL4"
- },
- {
-  "sap": "30041536",
-  "reference": "WEEU 061601-3",
-  "type": "A",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "CAT3"
- },
- {
-  "sap": "30029966",
-  "reference": "WEFU 031801-2",
-  "type": "A",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "PAL4"
- },
- {
-  "sap": "30026110",
-  "reference": "WEEU 051702-6",
-  "type": "A",
-  "taille": "10'",
-  "chaudFroid": "Chaud",
-  "site": "PAL4"
- },
- {
-  "sap": "30026109",
-  "reference": "WEEU 051701-0",
-  "type": "A",
-  "taille": "10'",
-  "chaudFroid": "Chaud",
-  "site": "PAL4"
- },
- {
-  "sap": "30023321",
-  "reference": "WEEU 091601-0",
-  "type": "A",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "PAL4"
- },
- {
-  "sap": "30011262",
-  "reference": "WEEU 081301-2",
-  "type": "A",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "PAL4"
- },
- {
-  "sap": "1610976",
-  "reference": "WEEU 120821-1",
-  "type": "IP2",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "CAT3"
- },
- {
-  "sap": "1610971",
-  "reference": "WEEU 120816-6",
-  "type": "IP2",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "GOL1"
- },
- {
-  "sap": "1607347",
-  "reference": "WEEU 090606-0",
-  "type": "A",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "PAL4"
- },
- {
-  "sap": "224039",
-  "reference": "TPSU 210107-2",
-  "type": "IP2",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "PAL4"
- },
- {
-  "sap": "30026111",
-  "reference": "WEEU 051703-1",
-  "type": "A",
-  "taille": "10'",
-  "chaudFroid": "Chaud",
-  "site": "PAL4"
- },
- {
-  "sap": "30085181",
-  "reference": "LGTN 017127-3",
-  "type": "A",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "PAL4"
- },
- {
-  "sap": "30000130",
-  "reference": "WEEU 151010-8",
-  "type": "A",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "CAT3"
- },
- {
-  "sap": "30026489",
-  "reference": "WEEU 061704-6",
-  "type": "A",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "CAT3"
- },
- {
-  "sap": "1610970",
-  "reference": "WEEU 120815-0",
-  "type": "IP2",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "CAT3"
- },
- {
-  "sap": "30083797",
-  "reference": "LGTN 017003-0",
-  "type": "A",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "PAL4"
- },
- {
-  "sap": "224034",
-  "reference": "TPSU 210109-3",
-  "type": "IP2",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "CAT3"
- },
- {
-  "sap": "314180",
-  "reference": "MGBU 220786-6",
-  "type": "",
-  "taille": "20'",
-  "chaudFroid": "Froid",
-  "site": "PAL4"
- },
- {
-  "sap": "30003985",
-  "reference": "WEFU 071001-8",
-  "type": "IP2",
-  "taille": "20'",
-  "chaudFroid": "Froid",
-  "site": "CAT3"
- },
- {
-  "sap": "30042924",
-  "reference": "WEEU 112004-9",
-  "type": "A",
-  "taille": "10'",
-  "chaudFroid": "Chaud",
-  "site": "NIV"
- },
- {
-  "sap": "30021455",
-  "reference": "LGTN 017174-0",
-  "type": "A",
-  "taille": "20'",
-  "chaudFroid": "Chaud",
-  "site": "CAT3"
- }
+{"sap": "30054815", "num": "206095", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Bureau", "reference": "206095 – Bureau (Set 1, Froid)"},
+{"sap": "30054775", "num": "823282", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Work Module", "reference": "823282 – Work Module (Set 1, Froid)"},
+{"sap": "30000532", "num": "819592", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Parts Van", "reference": "819592 – Parts Van (Set 1, Froid)"},
+{"sap": "30054774", "num": "250027", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Parts Elec", "reference": "250027 – Parts Elec (Set 1, Froid)"},
+{"sap": "224002", "num": "183589", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Touret élec", "reference": "183589 – Touret élec (Set 1, Froid)"},
+{"sap": "30054773", "num": "041002", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Safety Van", "reference": "041002 – Safety Van (Set 1, Froid)"},
+{"sap": "30054786", "num": "823291", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Fourre Tout + Matériels en vrac", "reference": "823291 – Fourre Tout + Matériels en vrac (Set 1, Froid)"},
+{"sap": "30054779", "num": "206098", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flexibles 2'', rétention dépotage", "reference": "206098 – Flexibles 2'', rétention dépotage (Set 1, Froid)"},
+{"sap": "30000709", "num": "126435", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flexibles 3''", "reference": "126435 – Flexibles 3'' (Set 1, Froid)"},
+{"sap": "30052701", "num": "071004", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Clarinette APG 1300, pompe FE, pompe SED", "reference": "071004 – Clarinette APG 1300, pompe FE, pompe SED (Set 1, Froid)"},
+{"sap": "30054777", "num": "41003", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flexibles 3''", "reference": "41003 – Flexibles 3'' (Set 1, Froid)"},
+{"sap": "30054776", "num": "126446", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "PLC", "reference": "126446 – PLC (Set 1, Froid)"},
+{"sap": "30052470", "num": "298716-9", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Chimie", "reference": "298716-9 – Chimie (Set 1, Froid)"},
+{"sap": "30054816", "num": "31004", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Elec", "reference": "31004 – Elec (Set 1, Froid)"},
+{"sap": "224000", "num": "512149", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flange Box", "reference": "512149 – Flange Box (Set 1, Froid)"},
+{"sap": "30052465", "num": "031002", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flexibles vapeurs + Ligne vapeur", "reference": "031002 – Flexibles vapeurs + Ligne vapeur (Set 1, Froid)"},
+{"sap": "30029523", "num": "011802", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Conteneur tampon Set 1 et Set 2", "reference": "011802 – Conteneur tampon Set 1 et Set 2 (Set 1, Froid)"},
+{"sap": "30083964", "num": "229609", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Transfo 100 kVA x2", "reference": "229609 – Transfo 100 kVA x2 (Set 1, Froid)"},
+{"sap": "30054992", "num": "Control Module", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Contrôle module", "reference": "Control Module – Contrôle module (Set 1, Froid)"},
+{"sap": "30054778", "num": "118852", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Ventilo/TGBT", "reference": "118852 – Ventilo/TGBT (Set 1, Froid)"},
+{"sap": "30055002", "num": "200027", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Adaptateur spare GV", "reference": "200027 – Adaptateur spare GV (Set 1, Froid)"},
+{"sap": "30054810", "num": "200022", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flexibles, flange box, clarinette Allaman", "reference": "200022 – Flexibles, flange box, clarinette Allaman (Set 1, Froid)"},
+{"sap": "30052466", "num": "31003", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flexibles vapeur", "reference": "31003 – Flexibles vapeur (Set 1, Froid)"},
+{"sap": "30054785", "num": "C1", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Conteneur Process 1", "reference": "C1 – Conteneur Process 1 (Set 1, Froid)"},
+{"sap": "30054784", "num": "C2", "set": "Set 1", "taille": "20'", "chaudFroid": "Froid", "contenu": "Conteneur Process 2", "reference": "C2 – Conteneur Process 2 (Set 1, Froid)"},
+{"sap": "30000705", "num": "126424", "set": "Set 1 / Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flexibles process 3'' + Flexible 3''/1''", "reference": "126424 – Flexibles process 3'' + Flexible 3''/1'' (Set 1 / Set 2, Froid)"},
+{"sap": "30000722", "num": "126438", "set": "Set 1 / Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flange box sup + Flange box / TGBT / TP spare", "reference": "126438 – Flange box sup + Flange box / TGBT / TP spare (Set 1 / Set 2, Froid)"},
+{"sap": "30035551", "num": "031001-1", "set": "Set 1", "taille": "20'", "chaudFroid": "Chaud", "contenu": "Flexible vapeur", "reference": "031001-1 – Flexible vapeur (Set 1, Chaud)"},
+{"sap": "30035567", "num": "041001-1", "set": "Set 1", "taille": "20'", "chaudFroid": "Chaud", "contenu": "Matériels labo + APG", "reference": "041001-1 – Matériels labo + APG (Set 1, Chaud)"},
+{"sap": "30045681", "num": "071005-0", "set": "Set 1", "taille": "20'", "chaudFroid": "Chaud", "contenu": "Conteneur tampon chaud", "reference": "071005-0 – Conteneur tampon chaud (Set 1, Chaud)"},
+{"sap": "1613234", "num": "210112-3", "set": "Set 1", "taille": "20'", "chaudFroid": "Chaud", "contenu": "Conteneur chimie/PLC", "reference": "210112-3 – Conteneur chimie/PLC (Set 1, Chaud)"},
+{"sap": "1613233", "num": "210111-8", "set": "Set 1", "taille": "20'", "chaudFroid": "Chaud", "contenu": "Conteneur méca, TO/TP", "reference": "210111-8 – Conteneur méca, TO/TP (Set 1, Chaud)"},
+{"sap": "1610968", "num": "120813", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Conteneur bureau", "reference": "120813 – Conteneur bureau (Set 2, Froid)"},
+{"sap": "30000719", "num": "120822", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Conteneur chimie", "reference": "120822 – Conteneur chimie (Set 2, Froid)"},
+{"sap": "30000707", "num": "126427", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Touret élec", "reference": "126427 – Touret élec (Set 2, Froid)"},
+{"sap": "30000710", "num": "126428", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Rétention mobile/pompe SED", "reference": "126428 – Rétention mobile/pompe SED (Set 2, Froid)"},
+{"sap": "30042193", "num": "126430", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flexible 3''/2''", "reference": "126430 – Flexible 3''/2'' (Set 2, Froid)"},
+{"sap": "30000712", "num": "126439", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Fourre tout", "reference": "126439 – Fourre tout (Set 2, Froid)"},
+{"sap": "30000716", "num": "217765", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flexible 2''/1'' + PAM 1''", "reference": "217765 – Flexible 2''/1'' + PAM 1'' (Set 2, Froid)"},
+{"sap": "30042191", "num": "217813", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Pompe SER/ventilateur/matériel élec", "reference": "217813 – Pompe SER/ventilateur/matériel élec (Set 2, Froid)"},
+{"sap": "30042192", "num": "250117", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flexible 2''/1''", "reference": "250117 – Flexible 2''/1'' (Set 2, Froid)"},
+{"sap": "30042188", "num": "250118", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Work Module", "reference": "250118 – Work Module (Set 2, Froid)"},
+{"sap": "30034139", "num": "Control Module", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Contrôle module", "reference": "Control Module – Contrôle module (Set 2, Froid)"},
+{"sap": "30000682", "num": "820472", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Safety Van", "reference": "820472 – Safety Van (Set 2, Froid)"},
+{"sap": "30042194", "num": "822620", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flexible vapeur", "reference": "822620 – Flexible vapeur (Set 2, Froid)"},
+{"sap": "30042195", "num": "822649", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Flexible vapeur", "reference": "822649 – Flexible vapeur (Set 2, Froid)"},
+{"sap": "30042189", "num": "822699", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Parts Van", "reference": "822699 – Parts Van (Set 2, Froid)"},
+{"sap": "30042190", "num": "822850", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Elec parts", "reference": "822850 – Elec parts (Set 2, Froid)"},
+{"sap": "30054047", "num": "229607", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Transfo 100 kVA x2", "reference": "229607 – Transfo 100 kVA x2 (Set 2, Froid)"},
+{"sap": "30042197", "num": "250787", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Barillet vapeur, barillet THS, barillet air/azote", "reference": "250787 – Barillet vapeur, barillet THS, barillet air/azote (Set 2, Froid)"},
+{"sap": "30054043", "num": "C1", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Conteneur Process 1", "reference": "C1 – Conteneur Process 1 (Set 2, Froid)"},
+{"sap": "30054044", "num": "C2", "set": "Set 2", "taille": "20'", "chaudFroid": "Froid", "contenu": "Conteneur Process 2", "reference": "C2 – Conteneur Process 2 (Set 2, Froid)"},
+{"sap": "30035589", "num": "210110-7", "set": "Set 2", "taille": "20'", "chaudFroid": "Chaud", "contenu": "Conteneur tampon chaud", "reference": "210110-7 – Conteneur tampon chaud (Set 2, Chaud)"},
+{"sap": "30040322", "num": "017102-4", "set": "Set 2", "taille": "20'", "chaudFroid": "Chaud", "contenu": "Flexible vapeur", "reference": "017102-4 – Flexible vapeur (Set 2, Chaud)"},
+{"sap": "30029524", "num": "011803-1", "set": "Set 2", "taille": "20'", "chaudFroid": "Chaud", "contenu": "Conteneur méca, TO/TP", "reference": "011803-1 – Conteneur méca, TO/TP (Set 2, Chaud)"},
+{"sap": "30029525", "num": "011804-7", "set": "Set 2", "taille": "20'", "chaudFroid": "Chaud", "contenu": "Vapeur/chimie/PLC", "reference": "011804-7 – Vapeur/chimie/PLC (Set 2, Chaud)"},
+{"sap": "30029522", "num": "011801-0", "set": "Set 2", "taille": "20'", "chaudFroid": "Chaud", "contenu": "Matériels labo + APG", "reference": "011801-0 – Matériels labo + APG (Set 2, Chaud)"}
 ]
