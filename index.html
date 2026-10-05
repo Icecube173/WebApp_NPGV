@@ -30,19 +30,18 @@
       <span class="titre">Fiche de maintenance</span>
       <div class="sous">Saisir et remonter une FDM</div>
     </a>
-    <!-- Les modules suivants seront ajoutés aux étapes 2, 3, 4…
-    <a class="tuile" href="etat.html"><span class="ico">📊</span><span class="titre">État du matériel</span><div class="sous">Vue d'ensemble des sous-ensembles</div></a>
-    <a class="tuile" href="rex.html"><span class="ico">💬</span><span class="titre">Retour d'expérience</span><div class="sous">Remarques depuis le terrain</div></a>
-    <a class="tuile" href="colisage.html"><span class="ico">📦</span><span class="titre">Colisage</span><div class="sous">Conteneur, caisse…</div></a>
-    -->
+    <a class="tuile" href="colisage.html">
+      <span class="ico">📦</span>
+      <span class="titre">Colisage</span>
+      <div class="sous">Scanner conteneur et équipements</div>
+    </a>
   </div>
 
 </div>
 
-<footer class="pied">Webapp chantier — v0.1</footer>
+<footer class="pied">Webapp chantier — v0.2</footer>
 
 <script>
-// Chargement de la liste des chantiers + mémorisation du choix
 fetch('chantiers.json')
   .then(r => r.json())
   .then(data => {

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colisage — Chantier</title>
+<link rel="stylesheet" href="style.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0078D7">
+<link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+<header class="app-header">
+  <a class="back" href="index.html">‹</a>
+  <h1>📦 Colisage</h1>
+</header>
+
+<div class="container">
+
+  <div class="carte">
+    <p id="modeTxt" style="font-weight:700;padding:12px;border-radius:10px;margin:0 0 12px">1️⃣ Scanne le QR du CONTENEUR</p>
+
+    <button class="btn" id="btnCamera" onclick="demarrerCamera()">📷 Démarrer la caméra</button>
+    <div id="zoneVideo" style="display:none;margin-top:10px">
+      <video id="video" muted playsinline style="width:100%;border-radius:12px;background:#000"></video>
+      <p class="info" style="text-align:center">Vise le QR code — un bip confirme la lecture</p>
+    </div>
+
+    <div class="field-group" style="margin-top:12px">
+      <label>Saisie manuelle ou scannette (valider avec Entrée)</label>
+      <div style="display:flex;gap:8px">
+        <input type="text" id="saisie" inputmode="numeric" autocomplete="off" placeholder="N° SAP">
+        <button class="btn-copy" onclick="saisieManuelle()">OK</button>
+      </div>
+    </div>
+
+    <button class="btn gris" onclick="changerConteneur()">🔁 Passer à un autre conteneur</button>
+    <div class="status" id="status"></div>
+  </div>
+
+  <div class="carte">
+    <h2 id="titreConteneur">Aucun conteneur sélectionné</h2>
+    <div id="listeItems"></div>
+  </div>
+
+  <div class="carte">
+    <h2>Listes de colisage</h2>
+    <div class="field-group">
+      <label>Opérateur (repris dans l'Excel)</label>
+      <input type="text" id="operateur" placeholder="Nom">
+    </div>
+    <div id="recap"></div>
+    <p class="info" style="margin-top:10px">Les listes restent enregistrées sur ce téléphone, même sans réseau, jusqu'à leur suppression.</p>
+  </div>
+
+</div>
+
+<script src="colisage.js"></script>
+<script>
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js');
+</script>
+</body>
+</html>

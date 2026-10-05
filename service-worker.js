@@ -1,8 +1,8 @@
-const CACHE = 'chantier-v2';
+const CACHE = 'chantier-v3';
 const FICHIERS = [
-  'index.html','fdm.html','style.css','manifest.json',
-  'chantiers.json','equipements.json','config.json',
-  'fdm.js','fdm-forms.js','icon-192.png','icon-512.png'
+  'index.html','fdm.html','colisage.html','style.css','manifest.json',
+  'chantiers.json','equipements.json','conteneurs.json','config.json',
+  'fdm.js','fdm-forms.js','photos.js','colisage.js','icon-192.png','icon-512.png'
 ];
 
 self.addEventListener('install', e => {
@@ -23,19 +23,21 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   const req = e.request;
-
-  // On ignore tout ce qui n'est pas une page du site :
-  // extensions navigateur (chrome-extension://), POST vers Power Automate, autres domaines.
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
-  if (url.origin !== self.location.origin) return;
+
+  // Lecteur QR de secours (jsQR) : mis en cache pour fonctionner hors réseau
+  const estJsQR = url.hostname === 'cdn.jsdelivr.net' && url.pathname.includes('/jsqr@');
+  if (url.origin !== self.location.origin && !estJsQR) return;
 
   e.respondWith(
     fetch(req)
       .then(r => {
-        const copie = r.clone();
-        caches.open(CACHE).then(c => c.put(req, copie)).catch(() => {});
+        if (r.ok || r.type === 'opaque') {
+          const copie = r.clone();
+          caches.open(CACHE).then(c => c.put(req, copie)).catch(() => {});
+        }
         return r;
       })
       .catch(() => caches.match(req))
