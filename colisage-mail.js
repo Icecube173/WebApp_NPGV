@@ -50,29 +50,25 @@
     return el ? (el.value || '').trim() : '';
   }
 
-    // Chantier : 1) liste de la page Colisage si remplie, 2) sinon chantier mémorisé par la page principale
-  function lireChantier() {
-    const champ = valeurChamp('chantier');
-    if (champ) return champ;
+  // Chantier sélectionné sur la page principale (index.html)
+  // index.html enregistre : localStorage 'chantierId' = id, 'chantier' = {id, nom, ...}
+  let listeChantiers = [];
 
-    const cles = Object.keys(localStorage).filter(function (k) { return /chantier/i.test(k); });
-    // ignore la clé de la liste Colisage et les listes complètes de chantiers
-    for (const k of cles) {
-      if (k === 'colisageChantier') continue;
-      const brut = localStorage.getItem(k);
-      if (!brut) continue;
-      try {
-        const v = JSON.parse(brut);
-        if (typeof v === 'string' && v) return v;
-        if (v && !Array.isArray(v) && typeof v === 'object') {
-          const code = v.code || v.numero || v.nom || v.libelle || v.id;
-          if (code) return String(code);
-        }
-      } catch (_) {
-        return brut.trim();   // valeur simple non JSON, ex. WEF-25-ETV-MTN-SLB2
-      }
+  function lireChantier() {
+    // 1) Liste de la page Colisage si l'utilisateur l'a changée
+    const sel = document.getElementById('chantier');
+    let id = sel && sel.value ? sel.value : '';
+
+    // 2) Sinon, chantier choisi sur la page principale
+    if (!id) id = localStorage.getItem('chantierId') || '';
+
+    // Fiche complète : d'abord dans chantiers.json, sinon dans la clé 'chantier'
+    let fiche = listeChantiers.find(function (c) { return String(c.id) === String(id); });
+    if (!fiche) {
+      try { fiche = JSON.parse(localStorage.getItem('chantier') || 'null'); } catch (_) { fiche = null; }
     }
-    return localStorage.getItem('colisageChantier') || '';
+    if (fiche && fiche.nom) return fiche.nom;
+    return id ? String(id) : '';
   }
 
   // --- 3. Envoi au flux Power Automate ---
@@ -116,27 +112,31 @@
     }
   }
 
-  // --- 4. Liste des chantiers (chantiers.json) + memorisation du choix ---
-  async function initChantier() {
+    async function initChantier() {
     const sel = document.getElementById('chantier');
-    if (!sel) return;
     try {
-      const data = await fetch('chantiers.json').then(function (r) { return r.json(); });
-      const liste = Array.isArray(data) ? data : (data.chantiers || Object.values(data));
-      liste.forEach(function (c) {
-        const val = typeof c === 'string'
-          ? c
-          : (c.code || c.numero || c.nom || c.libelle || c.id || JSON.stringify(c));
-        const txt = typeof c === 'string' ? c : (c.libelle || c.nom || val);
-        const opt = document.createElement('option');
-        opt.value = val;
-        opt.textContent = txt;
-        sel.appendChild(opt);
-      });
+      listeChantiers = await fetch('chantiers.json').then(function (r) { return r.json(); });
     } catch (e) { console.error('chantiers.json :', e); }
-    sel.value = '';
-    sel.value = lireChantier();
-    sel.addEventListener('change', function () { localStorage.setItem('colisageChantier', sel.value); });
+    if (!sel) return;
+
+    // Mêmes valeurs que sur index.html : value = id, texte = nom
+    sel.innerHTML = '<option value="">— Choisir le chantier —</option>';
+    listeChantiers.forEach(function (c) {
+      const o = document.createElement('option');
+      o.value = c.id;
+      o.textContent = c.nom;
+      sel.appendChild(o);
+    });
+
+    // Pré-sélection = chantier de la page principale
+    sel.value = localStorage.getItem('chantierId') || '';
+
+    // Un changement ici met aussi à jour le chantier de la page principale
+    sel.addEventListener('change', function () {
+      localStorage.setItem('chantierId', sel.value);
+      const c = listeChantiers.find(function (x) { return String(x.id) === sel.value; });
+      localStorage.setItem('chantier', c ? JSON.stringify(c) : '');
+    });
   }
 
   // --- 5. Le bouton ---

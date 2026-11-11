@@ -53,8 +53,12 @@ fetch('chantiers.json')
       o.textContent = c.nom;
       sel.appendChild(o);
     });
-    const memo = localStorage.getItem('chantierId');
-    if (memo) sel.value = memo;
+      const memo = localStorage.getItem('chantierId');
+  if (memo) {
+    sel.value = memo;
+    const c = data.find(x => String(x.id) === memo);
+    if (c) localStorage.setItem('chantier', JSON.stringify(c));
+  }
     sel.addEventListener('change', () => {
       localStorage.setItem('chantierId', sel.value);
       const c = data.find(x => x.id === sel.value);
