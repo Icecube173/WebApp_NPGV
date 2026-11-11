@@ -56,9 +56,13 @@
       if (!cfg.colisageFlowUrl) throw new Error('colisageFlowUrl absent de config.json');
 
       const operateur = (document.getElementById('operateur') || {}).value || '';
+            const chantier = (document.getElementById('chantier') || {}).value || '';
+      if (!chantier && !confirm('Aucun chantier sélectionné. Envoyer quand même ?')) {
+        throw new Error('annulé');
+      }
       const payload = {
         conteneur: extraireConteneur(nom),
-        chantier: '',
+        chantier: chantier,
         operateur: operateur,
         nbEquipements: 0,
         nomFichier: nom,
@@ -72,6 +76,7 @@
       if (!rep.ok) throw new Error('HTTP ' + rep.status);
       alert('✅ Colisage « ' + nom + ' » envoyé par mail.');
     } catch (e) {
+      if (e.message === 'annulé') return;
       console.error(e);
       const f = new File([blob], nom, { type: blob.type });
       if (navigator.canShare && navigator.canShare({ files: [f] })) {
@@ -93,6 +98,29 @@
       ? '📧 Envoyer le colisage (' + dernierFichier.nom + ')'
       : '📧 Envoyer le colisage';
   }
+
+    // --- Liste des chantiers (chantiers.json) + mémorisation du choix ---
+  async function initChantier() {
+    const sel = document.getElementById('chantier');
+    if (!sel) return;
+    try {
+      const data = await fetch('chantiers.json').then(r => r.json());
+      const liste = Array.isArray(data) ? data : (data.chantiers || Object.values(data));
+      liste.forEach(c => {
+        const val = typeof c === 'string'
+          ? c
+          : (c.code || c.numero || c.nom || c.libelle || c.id || JSON.stringify(c));
+        const txt = typeof c === 'string' ? c : (c.libelle || c.nom || val);
+        const opt = document.createElement('option');
+        opt.value = val;
+        opt.textContent = txt;
+        sel.appendChild(opt);
+      });
+    } catch (e) { console.error('chantiers.json :', e); }
+    sel.value = localStorage.getItem('colisageChantier') || '';
+    sel.addEventListener('change', () => localStorage.setItem('colisageChantier', sel.value));
+  }
+
   function creerBouton() {
     let btn = document.getElementById('btnEnvoyerColisage');
     if (!btn) {
@@ -111,4 +139,9 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', creerBouton);
   else creerBouton();
+})();
+
+  function demarrer() { creerBouton(); initChantier(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', demarrer);
+  else demarrer();
 })();
