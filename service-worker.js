@@ -1,4 +1,4 @@
-const CACHE = 'chantier-v4';
+const CACHE = 'chantier-v5';
 const FICHIERS = [
   'index.html','fdm.html','colisage.html','style.css','manifest.json',
   'chantiers.json','equipements.json','conteneurs.json','config.json',
