@@ -47,3 +47,44 @@ async function partagerColisage(wb, nomFichier) {
     alert("⚠️ Envoi automatique impossible : le fichier a été téléchargé, joins-le à un mail manuellement.");
   }
 }
+
+envoyerColisageParMail(wb, nomFichier, {
+  conteneur: codeConteneur,          // variable qui contient le code SAP scanné du conteneur
+  chantier: chantierCourant,         // si disponible
+  operateur: nomOperateur,           // si disponible
+  nbEquipements: listeEquipements.length
+});
+
+// --- Interception automatique du téléchargement Excel généré par colisage.js ---
+(function () {
+  const blobsParUrl = new Map();
+
+  // 1. Mémorise chaque fichier (Blob) transformé en lien de téléchargement
+  const createOriginal = URL.createObjectURL;
+  URL.createObjectURL = function (obj) {
+    const url = createOriginal.call(URL, obj);
+    if (obj instanceof Blob) blobsParUrl.set(url, obj);
+    return url;
+  };
+
+  // 2. Au moment du "clic" de téléchargement, si c'est un fichier Excel/CSV → envoi au flux
+  const clickOriginal = HTMLAnchorElement.prototype.click;
+  HTMLAnchorElement.prototype.click = function () {
+    try {
+      const nom = this.download;
+      const blob = blobsParUrl.get(this.href);
+      if (nom && blob && /\.(xlsx|xls|csv)$/i.test(nom)) {
+        envoyerColisageParMail(blob, nom, { conteneur: extraireConteneur(nom) });
+      }
+    } catch (e) {
+      console.error('Interception colisage :', e);
+    }
+    return clickOriginal.apply(this, arguments); // le téléchargement normal continue
+  };
+
+  // Déduit le code conteneur à partir du nom du fichier (ex. "Colisage_WEEU051701-0_2026-11-10.xlsx")
+  function extraireConteneur(nom) {
+    const morceaux = nom.replace(/\.(xlsx|xls|csv)$/i, '').split('_');
+    return morceaux.length > 1 ? morceaux[1] : morceaux[0];
+  }
+})();
