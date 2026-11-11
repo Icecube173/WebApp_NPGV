@@ -50,9 +50,34 @@
     return el ? (el.value || '').trim() : '';
   }
 
+    // Chantier : 1) liste de la page Colisage si remplie, 2) sinon chantier mémorisé par la page principale
+  function lireChantier() {
+    const champ = valeurChamp('chantier');
+    if (champ) return champ;
+
+    const cles = Object.keys(localStorage).filter(function (k) { return /chantier/i.test(k); });
+    // ignore la clé de la liste Colisage et les listes complètes de chantiers
+    for (const k of cles) {
+      if (k === 'colisageChantier') continue;
+      const brut = localStorage.getItem(k);
+      if (!brut) continue;
+      try {
+        const v = JSON.parse(brut);
+        if (typeof v === 'string' && v) return v;
+        if (v && !Array.isArray(v) && typeof v === 'object') {
+          const code = v.code || v.numero || v.nom || v.libelle || v.id;
+          if (code) return String(code);
+        }
+      } catch (_) {
+        return brut.trim();   // valeur simple non JSON, ex. WEF-25-ETV-MTN-SLB2
+      }
+    }
+    return localStorage.getItem('colisageChantier') || '';
+  }
+
   // --- 3. Envoi au flux Power Automate ---
   async function envoyer(blob, nom) {
-    const chantier = valeurChamp('chantier');
+    const chantier = lireChantier();
     if (!chantier && !confirm('Aucun chantier sélectionné. Envoyer quand même ?')) return;
 
     const btn = document.getElementById('btnEnvoyerColisage');
@@ -109,7 +134,8 @@
         sel.appendChild(opt);
       });
     } catch (e) { console.error('chantiers.json :', e); }
-    sel.value = localStorage.getItem('colisageChantier') || '';
+    sel.value = '';
+    sel.value = lireChantier();
     sel.addEventListener('change', function () { localStorage.setItem('colisageChantier', sel.value); });
   }
 
