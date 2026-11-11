@@ -1,8 +1,9 @@
-const CACHE = 'chantier-v3';
+const CACHE = 'chantier-v4';
 const FICHIERS = [
   'index.html','fdm.html','colisage.html','style.css','manifest.json',
   'chantiers.json','equipements.json','conteneurs.json','config.json',
-  'fdm.js','fdm-forms.js','photos.js','colisage.js','icon-192.png','icon-512.png'
+  'fdm.js','fdm-forms.js','photos.js','colisage.js','colisage-mail.js',
+  'icon-192.png','icon-512.png'
 ];
 
 self.addEventListener('install', e => {
@@ -23,14 +24,15 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   const req = e.request;
-  if (req.method !== 'GET') return;
+  if (req.method !== 'GET') return;            // POST vers Power Automate : non intercepte
   const url = new URL(req.url);
   if (url.protocol !== 'http:' && url.protocol !== 'https:') return;
 
-  // Lecteur QR de secours (jsQR) : mis en cache pour fonctionner hors réseau
+  // Lecteur QR de secours (jsQR) : mis en cache pour fonctionner hors reseau
   const estJsQR = url.hostname === 'cdn.jsdelivr.net' && url.pathname.includes('/jsqr@');
   if (url.origin !== self.location.origin && !estJsQR) return;
 
+  // Reseau d'abord, cache en secours ; ignoreSearch pour retrouver la page meme avec ?parametres
   e.respondWith(
     fetch(req)
       .then(r => {
@@ -40,6 +42,6 @@ self.addEventListener('fetch', e => {
         }
         return r;
       })
-      .catch(() => caches.match(req))
+      .catch(() => caches.match(req, { ignoreSearch: true }))
   );
 });
