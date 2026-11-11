@@ -1,8 +1,8 @@
-// colisage-mail.js : bouton "Envoyer le colisage" → Power Automate (archivage + mail)
+// colisage-mail.js : bouton "Envoyer le colisage" -> Power Automate (archivage + mail)
 (function () {
   let dernierFichier = null; // { blob, nom }
 
-  // --- 1. Mémoriser le dernier fichier Excel/CSV téléchargé par colisage.js ---
+  // --- 1. Memoriser le dernier fichier Excel/CSV telecharge par colisage.js ---
   const blobsParUrl = new Map();
   const createOriginal = URL.createObjectURL;
   URL.createObjectURL = function (obj) {
@@ -16,7 +16,7 @@
       const nom = this.download;
       const blob = blobsParUrl.get(this.href);
       if (nom && blob && /\.(xlsx|xls|csv)$/i.test(nom)) {
-        dernierFichier = { blob, nom };
+        dernierFichier = { blob: blob, nom: nom };
         majBouton();
       }
     } catch (e) { console.error('Colisage mail :', e); }
@@ -25,9 +25,9 @@
 
   // --- 2. Outils ---
   function blobVersBase64(blob) {
-    return new Promise((resolve, reject) => {
+    return new Promise(function (resolve, reject) {
       const r = new FileReader();
-      r.onload = () => resolve(r.result.split(',')[1]);
+      r.onload = function () { resolve(String(r.result).split(',')[1]); };
       r.onerror = reject;
       r.readAsDataURL(blob);
     });
@@ -37,33 +37,35 @@
     return m.length > 1 ? m[1] : m[0];
   }
   function choisirFichier() {
-    return new Promise(resolve => {
+    return new Promise(function (resolve) {
       const inp = document.createElement('input');
       inp.type = 'file';
       inp.accept = '.xlsx,.xls,.csv';
-      inp.onchange = () => resolve(inp.files[0] || null);
+      inp.onchange = function () { resolve(inp.files[0] || null); };
       inp.click();
     });
+  }
+  function valeurChamp(id) {
+    const el = document.getElementById(id);
+    return el ? (el.value || '').trim() : '';
   }
 
   // --- 3. Envoi au flux Power Automate ---
   async function envoyer(blob, nom) {
+    const chantier = valeurChamp('chantier');
+    if (!chantier && !confirm('Aucun chantier sélectionné. Envoyer quand même ?')) return;
+
     const btn = document.getElementById('btnEnvoyerColisage');
     btn.disabled = true;
     btn.textContent = '⏳ Envoi en cours…';
     try {
-      const cfg = await fetch('config.json', { cache: 'no-store' }).then(r => r.json());
+      const cfg = await fetch('config.json', { cache: 'no-store' }).then(function (r) { return r.json(); });
       if (!cfg.colisageFlowUrl) throw new Error('colisageFlowUrl absent de config.json');
 
-      const operateur = (document.getElementById('operateur') || {}).value || '';
-            const chantier = (document.getElementById('chantier') || {}).value || '';
-      if (!chantier && !confirm('Aucun chantier sélectionné. Envoyer quand même ?')) {
-        throw new Error('annulé');
-      }
       const payload = {
         conteneur: extraireConteneur(nom),
         chantier: chantier,
-        operateur: operateur,
+        operateur: valeurChamp('operateur'),
         nbEquipements: 0,
         nomFichier: nom,
         contenuBase64: await blobVersBase64(blob)
@@ -74,9 +76,8 @@
         body: JSON.stringify(payload)
       });
       if (!rep.ok) throw new Error('HTTP ' + rep.status);
-      alert('✅ Colisage « ' + nom + ' » envoyé par mail.');
+      alert('✅ Colisage « ' + nom + ' » envoyé par mail (chantier : ' + (chantier || 'non renseigné') + ').');
     } catch (e) {
-      if (e.message === 'annulé') return;
       console.error(e);
       const f = new File([blob], nom, { type: blob.type });
       if (navigator.canShare && navigator.canShare({ files: [f] })) {
@@ -90,23 +91,14 @@
     }
   }
 
-  // --- 4. Le bouton ---
-  function majBouton() {
-    const btn = document.getElementById('btnEnvoyerColisage');
-    if (!btn) return;
-    btn.textContent = dernierFichier
-      ? '📧 Envoyer le colisage (' + dernierFichier.nom + ')'
-      : '📧 Envoyer le colisage';
-  }
-
-    // --- Liste des chantiers (chantiers.json) + mémorisation du choix ---
+  // --- 4. Liste des chantiers (chantiers.json) + memorisation du choix ---
   async function initChantier() {
     const sel = document.getElementById('chantier');
     if (!sel) return;
     try {
-      const data = await fetch('chantiers.json').then(r => r.json());
+      const data = await fetch('chantiers.json').then(function (r) { return r.json(); });
       const liste = Array.isArray(data) ? data : (data.chantiers || Object.values(data));
-      liste.forEach(c => {
+      liste.forEach(function (c) {
         const val = typeof c === 'string'
           ? c
           : (c.code || c.numero || c.nom || c.libelle || c.id || JSON.stringify(c));
@@ -118,9 +110,17 @@
       });
     } catch (e) { console.error('chantiers.json :', e); }
     sel.value = localStorage.getItem('colisageChantier') || '';
-    sel.addEventListener('change', () => localStorage.setItem('colisageChantier', sel.value));
+    sel.addEventListener('change', function () { localStorage.setItem('colisageChantier', sel.value); });
   }
 
+  // --- 5. Le bouton ---
+  function majBouton() {
+    const btn = document.getElementById('btnEnvoyerColisage');
+    if (!btn) return;
+    btn.textContent = dernierFichier
+      ? '📧 Envoyer le colisage (' + dernierFichier.nom + ')'
+      : '📧 Envoyer le colisage';
+  }
   function creerBouton() {
     let btn = document.getElementById('btnEnvoyerColisage');
     if (!btn) {
@@ -131,17 +131,18 @@
     }
     btn.type = 'button';
     majBouton();
-    btn.addEventListener('click', async () => {
+    btn.addEventListener('click', async function () {
       if (dernierFichier) return envoyer(dernierFichier.blob, dernierFichier.nom);
       const f = await choisirFichier();
       if (f) envoyer(f, f.name);
     });
   }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', creerBouton);
-  else creerBouton();
-})();
 
-  function demarrer() { creerBouton(); initChantier(); }
+  // --- 6. Demarrage ---
+  function demarrer() {
+    creerBouton();   // en premier : le bouton s'affiche meme si chantiers.json pose probleme
+    initChantier();
+  }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', demarrer);
   else demarrer();
 })();
